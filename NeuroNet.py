@@ -24,7 +24,7 @@ class Layer:
         print(self.biases.shape)
         print(self.biases)
 
-
+    # the shape parameter looks like this: [inputs, layer1...    ,outputs]
 class NeuralNetwork:
     def __init__(self, shape, sigma_weights=0.1, sigma_biases=0.1):
         self.outputs = None
