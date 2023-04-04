@@ -42,7 +42,7 @@ class NetworkFrame:
 
             for j in range(x):
 
-                node_button = ctk.CTkButton(layer_frame)
+                node_button = ctk.CTkButton(layer_frame, fg_color="blue")
                 self.node_buttons.append(node_button)
                 index = len(self.node_buttons) - 1
                 node_button.pack(side="top")
@@ -53,8 +53,11 @@ class NetworkFrame:
     def set_focus(self, button):
         for b in self.node_buttons:
             b.configure(fg_color="blue")
-        button.configure(fg_color="green")
-        self.node_button_focus = button
+        if self.node_button_focus is not button:
+            button.configure(fg_color="green")
+            self.node_button_focus = button
+        else:
+            self.node_button_focus = None
 
 
 
