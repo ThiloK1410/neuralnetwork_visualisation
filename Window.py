@@ -1,6 +1,7 @@
 import customtkinter as ctk
 import tkinter as tk
 from NeuroNet import *
+from functools import partial
 
 
 class App(ctk.CTk):
@@ -28,6 +29,9 @@ class NetworkFrame:
         self.nn_frame = ctk.CTkFrame(self.main_frame)
         self.nn_frame.pack(side="top")
 
+        self.node_buttons = []
+        self.node_button_focus = None
+
 
 
         for i, x in enumerate(nn_shape[1:]):
@@ -37,15 +41,20 @@ class NetworkFrame:
             biases = self.network.network[i].biases[0]
 
             for j in range(x):
-                node_label = ctk.CTkLabel(layer_frame)
-                node_label.pack(side="top")
-                text = f"+: {biases[j]}"
-                node_label.configure(text=text)
 
+                node_button = ctk.CTkButton(layer_frame)
+                self.node_buttons.append(node_button)
+                index = len(self.node_buttons) - 1
+                node_button.pack(side="top")
+                temp = "{:.5f}".format(biases[j])
+                text = f"+: {temp}"
+                node_button.configure(text=text, command=lambda index=index: self.set_focus(self.node_buttons[index]))
 
-
-
-
+    def set_focus(self, button):
+        for b in self.node_buttons:
+            b.configure(fg_color="blue")
+        button.configure(fg_color="green")
+        self.node_button_focus = button
 
 
 
